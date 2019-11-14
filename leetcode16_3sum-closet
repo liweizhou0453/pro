@@ -1,0 +1,51 @@
+int* sort(int *nums, int numsSize) {
+    int i, j,temp;
+    for (i = 0; i<numsSize-1;i++) {
+        for(j = 0; j<numsSize -1-i; j++) {
+            if (nums[j] >=nums[j+1]) {
+                temp =nums[j+1];
+                nums[j+1] = nums[j];
+                nums[j] = temp;
+            }
+        }
+    }
+    return nums;
+}
+
+int threeSumClosest(int* nums, int numsSize, int target){
+    int i, j, k, temp, temp1, min, new_target;
+    nums = sort(nums, numsSize);
+    int closeNum = nums[0] + nums[1] + nums[2];
+    for (i = 0; i < numsSize -2; i++) {
+        int j = i+1;
+        int r = numsSize -1;
+        while (j < r) {
+            int sum = nums[i] + nums[j] + nums[r];
+            if (sum - target <=0) {
+                temp = target-sum;
+            } else {
+                temp = sum-target;
+            }
+                
+            if (closeNum - target <=0) {
+                temp1 = target - closeNum;
+            } else {
+                temp1= closeNum - target;
+            }
+            
+            if (temp < temp1) {
+                closeNum = sum;
+            }
+            if (sum > target) {
+                r--;
+            } else if (sum < target) {
+                j++;
+            } else {
+                return target;
+            }
+        }
+    }
+    return closeNum;
+}
+
+//思路：同上一道题目15题一样，这道题也是利用双指针，只不过要用到前3个数的相加之后，然后和后面的数进行比较

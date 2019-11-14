@@ -1,0 +1,19 @@
+bool canJump(int *nums, int numsSize) 
+{
+    for (int i = 0; i < numsSize -1; ++i) {
+        if (nums[i] == 0) {
+            int max = 1, j = i - 1;
+            for (; j>= 0 && nums[j] <= max; --j) {
+                ++max;
+            }
+            if (j == -1) {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
+
+//思路：如果数组中存在跳不过去的点，那么肯定是存在值为0的点，并且无论怎样0之前的点都跳不过去这个点，因此我们先寻找数组中值为0的点，向前依次查找能跳过这个点的点，如果查找不到，那就证明这里无法跳过去。
+如果找到了，那么就继续向下查找下一个0。(最后一个点的值可以忽略)

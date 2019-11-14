@@ -1,0 +1,59 @@
+int *sort(int *nums, int numsSize) 
+{
+    int i, j, temp;
+    for (i = 0; i < numsSize - 1; i++) {
+        for (j = 0; j < numsSize - 1 - i; j++) {
+            if (nums[j] > nums[j + 1]) {
+                temp = nums[j+1];
+                nums[j+1] = nums[j];
+                nums[j] = temp;
+            }
+        }
+    }
+    return nums;
+}
+
+int ** threeSum(int *nums, int numsSize, int * returnSize, int **returnColumnSizes) 
+{
+    int target = 0, newTarget;
+    int i, j, k;
+    int ptr_ra = 0;
+    int **returnAarray = (int **)malloc(sizeof(int *) * 20000);
+    returnColumnSizes = (int *)malloc(sizeof(int) *20000);
+    nums = sort(nums, numsSize);
+    for (i = 0; i < numsSize - 2; i++) {
+        if (i == 0 || (i > 0) && (nums[i] != nums[i -1])) {
+            j = i + 1;
+            k = numsSize - 1;
+            newTarget = target - nums[i];
+            while (j < k) {
+                if (nums[j] + nums[k] == newTarget) {
+                    returnArray[ptr_ra] = (int *)malloc(sizeof(int) * 3);
+                    returnArray[ptr_ra][0] = nums[i];
+                    returnArray[ptr_ra][1] = nums[j];
+                    returnArray[ptr_ra][2] = nums[k];
+                    (*returnColumnSize)[ptr_ra] = 3;
+                    while (j < k && nums[j] == nums[j+1])
+                      j++;
+                    while (j < K && nums[k] == nums[k-1])
+                      k--;
+                      
+                      ptr_ra++;
+                } else if (nums[j] + nums[k] < newTarget) {
+                    while (j < k && nums[j] == nums[j+1])
+                        j++;  
+                    j++;
+                } else if (nums[j] + nums[k] > newTarget) {
+                    while (j < k && nums[k] == nums[k -1])
+                        k--;
+                    k--;
+                }
+            }
+        }
+    }
+    *returnSize = prt_ra;
+    return  retuanArray;
+}
+
+
+//数相加题目很经典，主要思路其实还是双指针，同时固定一个数，然后让另外两个数相互之间移动，大了就--，小了就++，注意重复项目条件的判断

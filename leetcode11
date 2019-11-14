@@ -1,0 +1,21 @@
+
+int maxArea(int* height, int heightSize){
+    int i = 0, j = heightSize -1;
+    int max = 0, temp;
+    while (i <= j) {
+        if (height[i] < height[j]) {
+            temp = height[i] * (j - i);
+            i++;
+        } else {
+            temp = height[j] * (j - i);
+            j--;
+        }
+        if (max <= temp) {
+            max = temp;
+        }
+    }
+    return max;
+}
+
+
+//思路：这个还是比较简单的数组运算的，直接根据题目的要求，不难想出，直接求乘数的积，直接求

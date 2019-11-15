@@ -1,0 +1,43 @@
+int comp(const void *a, const void *b) 
+{
+    return *(int *)a - *(int *)b;
+}
+
+void nextPermutation(int *nums, int numsSize) 
+{
+    int i, head;
+    //判断是不是最大排列
+    for (i = numsSize -1; i>= 1; --i) {
+        if (nums[i-1] < nums[i])
+            break;
+    }
+    if (i == 0) {
+        //已经是最大排列，返回升序0
+        qsort(nums, numsSize, sizeof(int), comp);
+        return;
+    } else {
+        //找到了领头点，从领头+1找略大的值
+        head = i - 1;
+        int min = 99999;
+        int index  = 0;
+        
+        for (i = head + 1; i <= numsSize -1; i++) {
+            if (nums[i] > nums[head] && (nums[i] - nums[head]) < min) {
+                min = nums[i] - nums[head];
+                index = i;
+            }
+        }
+        //交换nums[head]和nums[index];
+        int tmp = nums[head];
+        nums[head] = nums[index];
+        nums[index] = tmp;
+        
+        //如果head不是倒数第二个，那么将head后面的升序
+        if (head != numsSize-2) {
+            qsort(nums+head+1,numsSize-head-1,sizeof(int),comp);
+        }
+    }
+}
+
+
+//思路：首先要记住C语言自带的qsort这个接口，以及对应的实现；其次这个题既然是找下一个排列，那么就先判断下其他的情况，首先就是看下给定的排序序列是不是最大的排列，如果是最大的排列，直接调用sort接口返回升序；然后如果不是的话，那肯定能找到领头的点，找到了领头的点之后，从领头的点下一个点开始寻找比领头点大的点，同时值最小的点，记录这个点的索引，交换这个点和领头点；同时要别忘了将head后面的升序

@@ -1,0 +1,30 @@
+int search(int *nums, int numsSize, int target)
+{
+    if (nums == NULL || numsSize <= 0) {
+          return -1;
+    }
+    int start = 0, end = numsSize -1;
+    while (start<=end) {
+        int mid = start+ (end -start) /2;
+        if (nums[mid] == target) {
+            return mid;
+        } else if (nums[mid] > nums[end]) {
+            if (target >= nums[start] && target <=nums[mid]) {
+                end = mid -1;
+            }
+            else {
+                start = mid +1;
+            }
+        } else if (nums[mid] <= nums[end]) {
+            if (target > nums[mid] && target <= nums[end]) {
+                start = mid +1;
+            }
+            else {
+                end = mid -1;
+            }
+        }
+    }
+	return -1;
+}
+
+//思路：这种题目，看到升序排列率先想到双指针及mid这种三剑客的二分查找模式，然后和目标值比较，移动首尾的角标值

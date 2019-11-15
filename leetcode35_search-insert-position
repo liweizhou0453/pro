@@ -1,0 +1,15 @@
+int search(int *nums, int numsSize, int target)
+{
+    if (numsSize <= 0) {
+        return 0;
+    }
+    int j = 0;
+    while (j < numsSize) {
+        if (nums[j] >= target) {
+          return j;
+        } else {
+            ++j;
+        }
+    }
+    return j;
+}

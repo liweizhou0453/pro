@@ -1,0 +1,16 @@
+bool canJump(int* nums, int numsSize)
+{
+    for (int i = 0; i <= numsSize -1; i++) {
+        int j = i-1;
+        max = 1;
+        for (; j >= 0 && nums[j] <= max; j--) {
+            max++;
+        }
+        if (j == -1) {
+          return false;
+        }
+    }
+    return true;
+}
+
+//思路：这个还是挺巧妙的，主要的思路点是如果它跳不过去，那么这个数组里面必然会有个点的值为0，而这个点之前的点无论怎么跳跃都跳不过去

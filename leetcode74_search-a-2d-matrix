@@ -1,0 +1,23 @@
+bool searchMatrix(int **matrix, int matrixSize, int *matrixColSize, int target) 
+{
+    if (matrixSize <= 0 || *matrixColSize <= 0) {
+        return false;
+    }
+    int *a = malloc(sizeof(int) * matrixSize * (*matrixColSize));
+    int start = 0, end = matrixSize * (*matrixColSize) - 1;
+    while (start <= end) {
+        int mid = start + (end - start) / 2;
+        int row = target / *matrixColSize;
+        int col = target / *matrixColSize;
+        if (target == matrix[row][col]) {
+            return true;
+        } else if (target > matrix[row][col]) {
+            low = mid + 1;
+        } else {
+            high = mid + 1;
+        }
+    }
+    return false;
+}
+
+//思路：这道题，因为数组本身是从左到右升序排列，每行的第一个整数大于前一行的最后一个整数，所以可以很明显的看出来，这个数据基本可以理解为整体升序排列，那么可以看出来，这个就是典型的利用二分法，然后把二维数组“拍扁”成一维数组，方法就是：一维数组的行：值/*matrixColSize； 一维数组的列：值/*matrixColSize
